@@ -1,3 +1,4 @@
+import 'package:affini/presentation/themes/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'presentation/screens/get_started_screen.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
           case '/home':
             return MaterialPageRoute(builder: (context) => const HomeScreen());
           case '/get-started':
-            return MaterialPageRoute(builder: (context) => const GetStartedScreen());
+            return MaterialPageRoute(
+                builder: (context) => const GetStartedScreen());
           case '/login':
             return MaterialPageRoute(builder: (context) => LoginScreen());
           default:
@@ -31,7 +33,9 @@ class MyApp extends StatelessWidget {
       },
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: 'Quicksand',
+        primarySwatch: Colors.purple,
+        scaffoldBackgroundColor: cPrimaryLight,
       ),
       home: const SplashScreen(),
     );
