@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'presentation/screens/get_started_screen.dart';
 import 'presentation/screens/home_screen.dart';
 import 'presentation/screens/login_screen.dart';
 import 'presentation/screens/splash_screen.dart';
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const HomeScreen());
           case '/home':
             return MaterialPageRoute(builder: (context) => const HomeScreen());
+          case '/get-started':
+            return MaterialPageRoute(builder: (context) => const GetStartedScreen());
           case '/login':
             return MaterialPageRoute(builder: (context) => LoginScreen());
           default:
