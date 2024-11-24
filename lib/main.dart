@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'presentation/screens/get_started_screen.dart';
 import 'presentation/screens/home_screen.dart';
 import 'presentation/screens/login_screen.dart';
+import 'presentation/screens/signup_screen.dart';
 import 'presentation/screens/splash_screen.dart';
 
 void main() {
@@ -29,13 +30,18 @@ class MyApp extends StatelessWidget {
     ),
     GoRoute(
       path: '/login',
-      builder: (context, state) => LoginScreen(),
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: '/signup',
+      builder: (context, state) => const SignupScreen(),
     ),
   ]);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'Quicksand',

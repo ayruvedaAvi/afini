@@ -88,8 +88,9 @@ class GetStartedScreen extends StatelessWidget {
                         onPressed: () {
                           context.push('/login');
                         },
-                        child: const Text('Already have an account? Log in',
-                            style: TextStyle(color: cPrimaryLight)),
+                        child: const Text('Already have an account? Log in..',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 48, 46, 46))),
                       ),
                     ],
                   ),
