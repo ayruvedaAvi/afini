@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../themes/colors.dart';
+import '../widgets/custom_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -57,52 +58,19 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(height: 32),
 
                       // Email field
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Email',
-                          prefixIcon: const Icon(Icons.email_outlined,
-                              color: Colors.grey),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF6C3CE9)),
-                          ),
-                        ),
-                      ),
+                      CustomTextField(
+                          hintText: "Email",
+                          isPassword: false,
+                          controller: TextEditingController(),
+                          icon: Icons.email_outlined),
                       const SizedBox(height: 16),
 
                       // Password field
-                      TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          hintText: 'Password',
-                          prefixIcon: const Icon(Icons.lock_outline,
-                              color: Colors.grey),
-                          suffixIcon: const Icon(Icons.visibility_off_outlined,
-                              color: Colors.grey),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide(color: Colors.grey[300]!),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide:
-                                const BorderSide(color: Color(0xFF6C3CE9)),
-                          ),
-                        ),
-                      ),
+                      CustomTextField(
+                          hintText: "Password",
+                          isPassword: true,
+                          controller: TextEditingController(),
+                          icon: Icons.lock_outline),
                       const SizedBox(height: 16),
 
                       // Forgot Password
