@@ -2,10 +2,10 @@ import 'package:affini/presentation/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'presentation/screens/baseLayout/base_layout.dart';
 import 'presentation/screens/get_started_screen.dart';
-import 'presentation/screens/home_screen.dart';
-import 'presentation/screens/login_screen.dart';
-import 'presentation/screens/signup_screen.dart';
+import 'presentation/screens/auth/login_screen.dart';
+import 'presentation/screens/auth/signup_screen.dart';
 import 'presentation/screens/splash_screen.dart';
 
 void main() {
@@ -22,7 +22,9 @@ class MyApp extends StatelessWidget {
     ),
     GoRoute(
       path: '/home',
-      builder: (context, state) => const HomeScreen(),
+      builder: (context, state) => const BaseLayout(
+        index: 0,
+      ),
     ),
     GoRoute(
       path: '/get-started',

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'; // Add this import
 import 'package:go_router/go_router.dart';
 
-import '../../domain/repositories/user_repository.dart';
-import '../cubits/auth/auth_cubit.dart';
-import '../themes/colors.dart';
-import '../widgets/custom_text_field.dart';
+import '../../../domain/repositories/user_repository.dart';
+import '../../cubits/auth/auth_cubit.dart';
+import '../../themes/colors.dart';
+import '../../widgets/custom_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
