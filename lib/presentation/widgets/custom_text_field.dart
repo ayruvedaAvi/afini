@@ -5,12 +5,14 @@ class CustomTextField extends StatelessWidget {
   final bool isPassword;
   final TextEditingController controller;
   final IconData icon;
+  final Function validator;
 
   const CustomTextField({
     required this.hintText,
     required this.isPassword,
     required this.controller,
     required this.icon,
+    required this.validator,
     super.key,
   });
 

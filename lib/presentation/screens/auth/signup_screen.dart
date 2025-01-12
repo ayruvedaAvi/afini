@@ -61,6 +61,7 @@ class SignupScreen extends StatelessWidget {
 
                       // Username field
                       CustomTextField(
+                          validator: () {},
                           hintText: "Full Name",
                           isPassword: false,
                           controller: TextEditingController(),
@@ -69,6 +70,7 @@ class SignupScreen extends StatelessWidget {
 
                       // Email field
                       CustomTextField(
+                          validator: () {},
                           hintText: "Email",
                           isPassword: false,
                           controller: TextEditingController(),
@@ -77,6 +79,7 @@ class SignupScreen extends StatelessWidget {
 
                       // Password field
                       CustomTextField(
+                          validator: () {},
                           hintText: "Password",
                           isPassword: true,
                           controller: TextEditingController(),
