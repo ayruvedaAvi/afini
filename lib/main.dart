@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import 'presentation/screens/get_started_screen.dart';
 import 'presentation/screens/home_screen.dart';
-import 'presentation/screens/login_screen.dart';
-import 'presentation/screens/signup_screen.dart';
+import 'presentation/screens/auth/login_screen.dart';
+import 'presentation/screens/auth/signup_screen.dart';
 import 'presentation/screens/splash_screen.dart';
 
 void main() {

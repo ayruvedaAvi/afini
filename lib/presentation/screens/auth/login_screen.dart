@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../themes/colors.dart';
-import '../widgets/custom_text_field.dart';
+import '../../themes/colors.dart';
+import '../../widgets/custom_text_field.dart';
 
-class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +15,7 @@ class SignupScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              cPrimaryDark,
-              cSecondaryDark,
-            ],
+            colors: [cPrimaryDark, cSecondaryDark],
           ),
         ),
         child: Stack(
@@ -46,10 +44,10 @@ class SignupScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Hello text
+                      // Welcome back text
                       const Center(
                         child: Text(
-                          'hello!',
+                          'welcome back!',
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.w600,
@@ -58,14 +56,6 @@ class SignupScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 32),
-
-                      // Username field
-                      CustomTextField(
-                          hintText: "Username",
-                          isPassword: false,
-                          controller: TextEditingController(),
-                          icon: Icons.person_outline),
-                      const SizedBox(height: 16),
 
                       // Email field
                       CustomTextField(
@@ -83,48 +73,37 @@ class SignupScreen extends StatelessWidget {
                           icon: Icons.lock_outline),
                       const SizedBox(height: 16),
 
-                      // Terms and conditions
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: Checkbox(
-                              value: false,
-                              onChanged: (value) {},
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          const Text(
-                            'I agree to the terms and conditions',
+                      // Forgot Password
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            'Forgot Password?',
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: Color(0xFF6C3CE9),
                               fontSize: 14,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ],
+                        ),
                       ),
                       const SizedBox(height: 24),
 
-                      // Sign Up button
+                      // Login button
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: cSecondaryDark,
-                            elevation: 2,
-                            shadowColor: cPrimaryDark,
+                            backgroundColor: const Color(0xFF6C3CE9),
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
                           child: const Text(
-                            'Sign Up',
+                            'Login',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -138,11 +117,11 @@ class SignupScreen extends StatelessWidget {
                       Column(
                         children: [
                           const Text(
-                            'Log in with google!',
+                            'Log in with your social media account',
                             style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
                           ),
                           const SizedBox(height: 16),
                           Row(
@@ -159,6 +138,36 @@ class SignupScreen extends StatelessWidget {
                             ],
                           ),
                         ],
+                      ),
+                      const SizedBox(height: 24),
+
+                      // Sign up link
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Don't have an account? ",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                context.push('/signup');
+                              },
+                              child: const Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                  color: Color(0xFF6C3CE9),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
