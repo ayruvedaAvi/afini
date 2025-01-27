@@ -14,6 +14,7 @@ Affini is a dedicated platform designed to strengthen and celebrate relationship
 ---
 
 ## Getting Started
+Note: Backend code is hidden and the api URLs are not real. The real ones may vary.
 
 ### Prerequisites
 - Flutter 3.10 or above
