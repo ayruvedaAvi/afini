@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
 
         if (state.status == AuthStatus.authenticated) {
-          context.go('/home'); // Using go instead of push for authentication flow
+          context.goNamed('home');
         }
       },
       child: Scaffold(
@@ -101,7 +101,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           const SizedBox(height: 32),
-
                           CustomTextField(
                             hintText: "Email",
                             isPassword: false,
@@ -119,7 +118,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           const SizedBox(height: 16),
-
                           CustomTextField(
                             hintText: "Password",
                             isPassword: true,
@@ -136,7 +134,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           const SizedBox(height: 16),
-
                           Align(
                             alignment: Alignment.centerRight,
                             child: TextButton(
@@ -152,7 +149,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           const SizedBox(height: 24),
-
                           BlocBuilder<AuthCubit, AuthState>(
                             builder: (context, state) {
                               return SizedBox(
@@ -183,6 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
+                                            color: cPrimaryLight,
                                           ),
                                         ),
                                 ),
@@ -190,8 +187,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           const SizedBox(height: 24),
-
-                          // Rest of your social login and sign up widgets...
                           Column(
                             children: [
                               const Text(
@@ -218,7 +213,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           const SizedBox(height: 24),
-
                           Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -232,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    context.push('/signup');
+                                    context.pushNamed('signup');
                                   },
                                   child: const Text(
                                     'Sign Up',

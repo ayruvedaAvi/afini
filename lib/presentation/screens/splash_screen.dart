@@ -27,7 +27,7 @@ class SplashScreenState extends State<SplashScreen>
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          context.go('/get-started');
+          context.goNamed('get-started');
         }
       });
 

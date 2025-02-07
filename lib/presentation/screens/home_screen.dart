@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -38,8 +39,7 @@ class HomeScreen extends StatelessWidget {
             // Button to navigate to another screen
             ElevatedButton(
               onPressed: () {
-                // Navigating to another screen (e.g., ProfileScreen)
-                Navigator.pushNamed(context, '/profile');
+                context.push('/profile');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple, // Customize button color

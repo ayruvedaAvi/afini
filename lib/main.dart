@@ -1,42 +1,16 @@
-import 'package:affini/presentation/themes/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-import 'presentation/screens/get_started_screen.dart';
-import 'presentation/screens/home_screen.dart';
-import 'presentation/screens/auth/login_screen.dart';
-import 'presentation/screens/auth/signup_screen.dart';
-import 'presentation/screens/splash_screen.dart';
+import 'core/app_router.dart';
+import 'core/dependency_injection.dart';
+import 'presentation/themes/colors.dart';
 
 void main() {
-  runApp(MyApp());
+  DependencyInjection.init();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
-  final GoRouter _router = GoRouter(initialLocation: '/splash', routes: [
-    GoRoute(
-      path: '/splash',
-      builder: (context, state) => const SplashScreen(),
-    ),
-    GoRoute(
-      path: '/home',
-      builder: (context, state) => const HomeScreen(),
-    ),
-    GoRoute(
-      path: '/get-started',
-      builder: (context, state) => const GetStartedScreen(),
-    ),
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => const LoginScreen(),
-    ),
-    GoRoute(
-      path: '/signup',
-      builder: (context, state) => const SignupScreen(),
-    ),
-  ]);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         scaffoldBackgroundColor: cPrimaryLight,
       ),
-      routerConfig: _router,
+      routerConfig: appRouter,
     );
   }
 }

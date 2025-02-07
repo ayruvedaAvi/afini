@@ -16,7 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
       ));
 
       final user = await _authRepo.login(email, password);
-      
+
       if (user != null) {
         emit(state.copyWith(
           status: AuthStatus.authenticated,
@@ -44,7 +44,7 @@ class AuthCubit extends Cubit<AuthState> {
       ));
 
       final user = await _authRepo.register(email, password);
-      
+
       emit(state.copyWith(
         status: AuthStatus.authenticated,
         user: user,
@@ -58,11 +58,10 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> logout() async {
+    emit(state.copyWith(status: AuthStatus.loading));
     try {
-      emit(state.copyWith(status: AuthStatus.loading));
-      
       await _authRepo.logout();
-      
+
       emit(state.copyWith(
         status: AuthStatus.unauthenticated,
         user: null,
@@ -78,8 +77,8 @@ class AuthCubit extends Cubit<AuthState> {
   void resetError() {
     emit(state.copyWith(
       errorMessage: null,
-      status: state.user != null 
-          ? AuthStatus.authenticated 
+      status: state.user != null
+          ? AuthStatus.authenticated
           : AuthStatus.unauthenticated,
     ));
   }

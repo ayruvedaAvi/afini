@@ -74,7 +74,7 @@ class GetStartedScreen extends StatelessWidget {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            context.push('/signup');
+                            context.pushNamed('signup');
                           },
                           child: const Text('Get Started',
                               style: TextStyle(
@@ -86,7 +86,7 @@ class GetStartedScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {
-                          context.push('/login');
+                          context.pushNamed('login');
                         },
                         child: const Text('Already have an account? Log in..',
                             style: TextStyle(
