@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../support/custom_nav_bar.dart';
-
 class GalleryScreen extends StatelessWidget {
   const GalleryScreen({super.key});
 
@@ -33,9 +31,6 @@ class GalleryScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: const CustomNavBar(
-        selectedIndex: 1,
       ),
     );
   }

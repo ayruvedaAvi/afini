@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../support/custom_nav_bar.dart';
-
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
 
@@ -33,9 +30,6 @@ class NotificationsScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: const CustomNavBar(
-        selectedIndex: 2,
       ),
     );
   }

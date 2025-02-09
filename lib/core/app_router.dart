@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../presentation/cubits/auth/auth_cubit.dart';
 import '../presentation/screens/auth/login_screen.dart';
 import '../presentation/screens/auth/signup_screen.dart';
+import '../presentation/screens/baseLayout/base_layout.dart';
 import '../presentation/screens/chats/chats_screen.dart';
 import '../presentation/screens/gallery/gallery_screen.dart';
 import '../presentation/screens/notifications/notifications_screen.dart';
@@ -17,15 +18,11 @@ import 'dependency_injection.dart';
 final GoRouter appRouter = GoRouter(
   initialLocation: '/splash',
   routes: [
+    // Non-authenticated routes (no bottom nav)
     GoRoute(
       name: 'splash',
       path: '/splash',
       builder: (context, state) => const SplashScreen(),
-    ),
-    GoRoute(
-      name: 'home',
-      path: '/home',
-      builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
       name: 'get-started',
@@ -36,34 +33,54 @@ final GoRouter appRouter = GoRouter(
       name: 'login',
       path: '/login',
       builder: (context, state) => BlocProvider(
-          create: (_) => AuthCubit(DependencyInjection.authRepository),
-          child: const LoginScreen()),
+        create: (_) => AuthCubit(DependencyInjection.authRepository),
+        child: const LoginScreen(),
+      ),
     ),
     GoRoute(
       name: 'signup',
       path: '/signup',
       builder: (context, state) => const SignupScreen(),
     ),
+
+    // Authenticated routes with bottom nav
+    ShellRoute(
+      builder: (context, state, child) {
+        return BaseLayout(
+          currentRoute: state.name ?? 'home',
+          child: child,
+        );
+      },
+      routes: [
+        GoRoute(
+          name: 'home',
+          path: '/home',
+          builder: (context, state) => const HomeScreen(),
+        ),
+        GoRoute(
+          name: 'gallery',
+          path: '/gallery',
+          builder: (context, state) => const GalleryScreen(),
+        ),
+        GoRoute(
+          name: 'notifications',
+          path: '/notifications',
+          builder: (context, state) => const NotificationsScreen(),
+        ),
+        GoRoute(
+          name: 'profile',
+          path: '/profile',
+          builder: (context, state) => const ProfileScreen(),
+        ),
+      ],
+    ),
+
+    // Modal routes (no bottom nav)
     GoRoute(
       name: 'chats',
       path: '/chats',
       builder: (context, state) => const ChatsScreen(),
     ),
-    GoRoute(
-      name: 'notifications',
-      path: '/notifications',
-      builder: (context, state) => const NotificationsScreen(),
-    ),
-    GoRoute(
-      name: 'profile',
-      path: '/profile',
-      builder: (context, state) => const ProfileScreen(),
-    ),
-    GoRoute(
-      name: 'gallery',
-      path: '/gallery',
-      builder: (context, state) => const GalleryScreen(),
-    )
   ],
   errorBuilder: (context, state) => ErrorScreen(
     errorMessage: state.error.toString(),
