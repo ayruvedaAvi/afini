@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../themes/colors.dart';
 
@@ -73,8 +74,7 @@ class GetStartedScreen extends StatelessWidget {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Navigate to the next screen
-                            Navigator.pushNamed(context, '/signup');
+                            context.pushNamed('signup');
                           },
                           child: const Text('Get Started',
                               style: TextStyle(
@@ -86,11 +86,11 @@ class GetStartedScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {
-                          // Navigate to the next screen
-                          Navigator.pushNamed(context, '/login');
+                          context.pushNamed('login');
                         },
-                        child: const Text('Already have an account? Log in',
-                            style: TextStyle(color: cPrimaryLight)),
+                        child: const Text('Already have an account? Log in..',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 48, 46, 46))),
                       ),
                     ],
                   ),
