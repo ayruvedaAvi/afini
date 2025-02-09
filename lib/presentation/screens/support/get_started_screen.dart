@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../themes/colors.dart';
+import '../../themes/colors.dart';
 
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
@@ -86,7 +86,7 @@ class GetStartedScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {
-                          context.pushNamed('login');
+                          context.pushNamed('home');
                         },
                         child: const Text('Already have an account? Log in..',
                             style: TextStyle(

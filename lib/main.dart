@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Quicksand',
         primarySwatch: Colors.purple,
-        scaffoldBackgroundColor: cPrimaryLight,
+        scaffoldBackgroundColor: cSecondaryDark,
       ),
       routerConfig: appRouter,
     );

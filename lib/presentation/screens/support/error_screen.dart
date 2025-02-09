@@ -44,7 +44,7 @@ class _ErrorScreenState extends State<ErrorScreen> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                // Navigator.of(context).pop();
               },
               child: const Text('Go Back'),
             ),
