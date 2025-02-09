@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 import '../presentation/cubits/auth/auth_cubit.dart';
 import '../presentation/screens/auth/login_screen.dart';
 import '../presentation/screens/auth/signup_screen.dart';
-import '../presentation/screens/get_started_screen.dart';
-import '../presentation/screens/home_screen.dart';
-import '../presentation/screens/splash_screen.dart';
+import '../presentation/screens/support/get_started_screen.dart';
+import '../presentation/screens/home/home_screen.dart';
+import '../presentation/screens/support/splash_screen.dart';
 import '../presentation/screens/support/error_screen.dart';
 import 'dependency_injection.dart';
 
