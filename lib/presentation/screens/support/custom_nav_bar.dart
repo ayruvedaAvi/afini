@@ -13,16 +13,16 @@ class CustomNavBar extends StatelessWidget {
   void _onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
-        context.pushNamed('home');
+        context.goNamed('home');
         break;
       case 1:
-        context.pushNamed('chat');
+        context.goNamed('gallery');
         break;
       case 2:
-        context.pushNamed('notifications');
+        context.goNamed('notifications');
         break;
       case 3:
-        context.pushNamed('profile');
+        context.goNamed('profile');
         break;
     }
   }
@@ -64,8 +64,8 @@ class CustomNavBar extends StatelessWidget {
               text: 'Home',
             ),
             GButton(
-              icon: Icons.chat_bubble_outline_rounded,
-              text: 'Chat',
+              icon: Icons.photo_library_outlined,
+              text: 'Gallery',
             ),
             GButton(
               icon: Icons.notifications_none,

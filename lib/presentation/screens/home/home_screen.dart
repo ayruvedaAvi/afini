@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../themes/colors.dart';
 import '../support/custom_nav_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -25,9 +27,31 @@ class HomeScreen extends StatelessWidget {
           extendBody: true,
           extendBodyBehindAppBar: true,
           appBar: AppBar(
-            title: const Text('Affini'),
+            title: Text(
+              'Affini',
+              style: GoogleFonts.pacifico(fontSize: 24, color: cSecondaryLight),
+            ),
             backgroundColor: Colors.transparent,
             elevation: 0,
+            centerTitle: true,
+            actions: [
+              Container(
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.chat_bubble_outline_rounded,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    context.pushNamed('chats');
+                  },
+                ),
+              ),
+            ],
           ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
