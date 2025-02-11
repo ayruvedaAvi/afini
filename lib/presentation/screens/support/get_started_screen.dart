@@ -86,7 +86,7 @@ class GetStartedScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {
-                          context.pushNamed('home');
+                          context.pushNamed('login');
                         },
                         child: const Text('Already have an account? Log in..',
                             style: TextStyle(

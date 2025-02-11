@@ -1,3 +1,4 @@
+import 'package:affini/core/auth_interceptor.dart';
 import 'package:dio/dio.dart';
 
 import 'api_urls.dart';
@@ -48,6 +49,7 @@ class DioClient {
         requestBody: false,
         responseBody: true,
       ),
+      AuthInterceptor(dio),
       // Add other interceptors here (auth, retry, etc.)
     ]);
 

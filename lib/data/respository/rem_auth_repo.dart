@@ -24,6 +24,7 @@ class RemAuthRepo implements AuthRepo {
       );
       if (response.statusCode == 200) {
         RemUser user = RemUser.fromJson(response.data);
+        debugPrint('User: ${user.full_name}');
         userResponse = User(
           id: user.id,
           email: user.email ?? '',
