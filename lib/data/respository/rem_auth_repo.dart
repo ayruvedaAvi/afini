@@ -25,13 +25,12 @@ class RemAuthRepo implements AuthRepo {
       );
       if (response.statusCode == 200) {
         RemUser user = RemUser.fromJson(response.data);
-        debugPrint('User: ${user.full_name}');
-        userResponse = User(
-          id: user.id,
-          email: user.email ?? '',
-          fullName: user.full_name ?? '',
-          userName: user.user_name ?? '',
+        debugPrint('User Logged In: ${user.user_name}');
+        await TokenStorage.saveTokens(
+          response.data['access_token'],
+          response.data['refresh_token'],
         );
+        userResponse = User.fromRemUser(user);
       } else {
         throw response.data['message'] ??
             'An unexpected error occurred. Please try again later';
@@ -63,12 +62,12 @@ class RemAuthRepo implements AuthRepo {
   }
 
   @override
-  Future<User> register(String email, String password) async {
+  Future<User?> register(String email, String password) async {
     await Future.delayed(const Duration(seconds: 1));
     return User(
       id: '1',
       email: email,
-      fullName: 'John Doe',
+      firstName: 'John Doe',
       userName: 'johndoe',
     );
   }
