@@ -6,4 +6,6 @@ class ApiUrls {
   //auth urls
   static const String LOGIN = "/auth/login";
   static const String SIGNUP = "/auth/signup";
+  static const String REFRESH = "/auth/refresh-token";
+  static const String LOGOUT = "/auth/logout";
 }

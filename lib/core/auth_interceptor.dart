@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+import 'api_urls.dart';
 import 'app_router.dart';
 import 'token_storage.dart';
 
@@ -13,7 +14,7 @@ class AuthInterceptor extends Interceptor {
       RequestOptions options, RequestInterceptorHandler handler) async {
     String? token = await TokenStorage.getAccessToken();
     if (token != null) {
-      options.headers['Authorization'] = 'Bearer $token';
+      options.headers['x-auth-token'] = token;
     }
     handler.next(options);
   }
@@ -40,10 +41,11 @@ class AuthInterceptor extends Interceptor {
 
     try {
       Response response = await dio
-          .post('/auth/refresh', data: {'refresh_token': refreshToken});
+          .post(ApiUrls.REFRESH, data: {'refresh_token': refreshToken});
       if (response.statusCode == 200) {
         String newAccessToken = response.data['access_token'];
-        await TokenStorage.saveTokens(newAccessToken, refreshToken);
+        String newRefreshToken = response.data['refresh_token'];
+        await TokenStorage.saveTokens(newAccessToken, newRefreshToken);
         return true;
       }
     } catch (e) {

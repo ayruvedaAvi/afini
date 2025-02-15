@@ -1,7 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
+import '../../../core/token_storage.dart';
+import '../../../data/respository/rem_auth_repo.dart';
 import '../../themes/colors.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -25,9 +30,23 @@ class SplashScreenState extends State<SplashScreen>
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller)
-      ..addStatusListener((status) {
+      ..addStatusListener((status) async {
         if (status == AnimationStatus.completed) {
-          context.goNamed('get-started');
+          final refreshToken = await TokenStorage.getRefreshToken();
+          if (refreshToken == null) {
+            context.goNamed('get-started');
+          }
+          if (JwtDecoder.isExpired(refreshToken!)) {
+            try {
+              await RemAuthRepo().logout();
+              context.goNamed('login');
+            } catch (e) {
+              debugPrint('Error: $e');
+              //show snackbar if necessary
+            }
+          } else {
+            context.goNamed('home');
+          }
         }
       });
 
