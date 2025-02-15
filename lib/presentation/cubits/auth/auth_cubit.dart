@@ -1,3 +1,4 @@
+import 'package:affini/domain/models/user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/repository/auth_repo.dart';
@@ -36,18 +37,18 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> register(String email, String password) async {
+  Future<void> register(User user) async {
     try {
       emit(state.copyWith(
         status: AuthStatus.loading,
         errorMessage: null,
       ));
 
-      final user = await _authRepo.register(email, password);
+      final registeredUser = await _authRepo.register(user: user);
 
       emit(state.copyWith(
         status: AuthStatus.authenticated,
-        user: user,
+        user: registeredUser,
       ));
     } catch (e) {
       emit(state.copyWith(

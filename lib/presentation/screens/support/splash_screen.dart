@@ -35,8 +35,9 @@ class SplashScreenState extends State<SplashScreen>
           final refreshToken = await TokenStorage.getRefreshToken();
           if (refreshToken == null) {
             context.goNamed('get-started');
+            return;
           }
-          if (JwtDecoder.isExpired(refreshToken!)) {
+          if (JwtDecoder.isExpired(refreshToken)) {
             try {
               await RemAuthRepo().logout();
               context.goNamed('login');

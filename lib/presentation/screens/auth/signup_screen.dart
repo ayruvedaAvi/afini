@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../themes/colors.dart';
 import '../../widgets/custom_text_field.dart';
@@ -116,7 +117,11 @@ class SignupScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.pushNamed('code-screen', pathParameters: {
+                              'isCopyCode': 'true',
+                            });
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: cSecondaryDark,
                             elevation: 2,

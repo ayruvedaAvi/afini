@@ -62,13 +62,31 @@ class RemAuthRepo implements AuthRepo {
   }
 
   @override
-  Future<User?> register(String email, String password) async {
-    await Future.delayed(const Duration(seconds: 1));
-    return User(
-      id: '1',
-      email: email,
-      firstName: 'John Doe',
-      userName: 'johndoe',
-    );
+  Future<User?> register({required User user}) async {
+    User? userResponse;
+    try {
+      response = await dio.post(
+        ApiUrls.SIGNUP,
+        data: user.toRemUser().toJson(),
+      );
+      if (response.statusCode == 201) {
+        RemUser user = RemUser.fromJson(response.data);
+        debugPrint('User Registered: ${user.user_name}');
+        await TokenStorage.saveTokens(
+          response.data['access_token'],
+          response.data['refresh_token'],
+        );
+        userResponse = User.fromRemUser(user);
+      } else {
+        throw response.data['message'] ??
+            'An unexpected error occurred. Please try again later';
+      }
+    } on DioException catch (dioError) {
+      throw handleException(dioError);
+    } catch (e) {
+      debugPrint('Error: $e');
+      throw 'An unexpected error occurred. Please try again later';
+    }
+    return userResponse;
   }
 }

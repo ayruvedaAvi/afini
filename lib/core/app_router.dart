@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../presentation/cubits/auth/auth_cubit.dart';
+import '../presentation/screens/auth/code_screen.dart';
 import '../presentation/screens/auth/login_screen.dart';
 import '../presentation/screens/auth/signup_screen.dart';
 import '../presentation/screens/baseLayout/base_layout.dart';
@@ -44,6 +45,13 @@ final GoRouter appRouter = GoRouter(
     ),
 
     // Authenticated routes with bottom nav
+    GoRoute(
+      name: 'code-screen',
+      path: '/code-screen/:isCopyCode',
+      builder: (context, state) => CodeScreen(
+        isCopyCode: state.pathParameters['isCopyCode'] == 'true',
+      ),
+    ),
     ShellRoute(
       builder: (context, state, child) {
         return BaseLayout(
