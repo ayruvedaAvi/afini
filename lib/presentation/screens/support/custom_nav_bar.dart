@@ -35,8 +35,8 @@ class CustomNavBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         gradient: LinearGradient(
           colors: [
-            Colors.black.withOpacity(0.4),
-            Colors.black.withOpacity(0.3),
+            Colors.black.withAlpha(102),
+            Colors.black.withAlpha(75),
           ],
         ),
       ),
@@ -45,12 +45,12 @@ class CustomNavBar extends StatelessWidget {
         child: GNav(
           padding: const EdgeInsets.all(12),
           backgroundColor: Colors.transparent,
-          color: Colors.white.withOpacity(0.7),
+          color: Colors.white.withAlpha(180),
           activeColor: Colors.white,
           tabBackgroundGradient: LinearGradient(
             colors: [
-              const Color.fromARGB(255, 226, 205, 226).withOpacity(0.5),
-              Colors.purple.withOpacity(0.5),
+              const Color.fromARGB(130, 226, 205, 226),
+              Colors.purple.withAlpha(130),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

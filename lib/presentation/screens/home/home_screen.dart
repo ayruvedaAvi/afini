@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
               'https://i0.wp.com/www.dailycameranews.com/wp-content/uploads/2018/02/canon-eos-m50-sample-images-05.jpeg?ssl=1'),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.3),
+            Colors.black.withAlpha(75),
             BlendMode.darken,
           ),
         ),
@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
             Container(
               margin: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.4),
+                color: Colors.black.withAlpha(102),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: IconButton(
