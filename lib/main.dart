@@ -48,8 +48,8 @@ class MyApp extends StatelessWidget {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            theme: ThemeService.getLightTheme(state.accentColor),
-            darkTheme: ThemeService.getDarkTheme(state.accentColor),
+            theme: ThemeService.getLightTheme(state.accentColor, state.fontSize),
+            darkTheme: ThemeService.getDarkTheme(state.accentColor, state.fontSize),
             themeMode: state.themeMode == MyThemeMode.system
                 ? ThemeMode.system
                 : state.themeMode == MyThemeMode.light

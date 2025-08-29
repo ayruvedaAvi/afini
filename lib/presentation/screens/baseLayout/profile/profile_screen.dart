@@ -13,13 +13,13 @@ class ProfileScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(
               Icons.settings,
-              color: Colors.black,
             ),
             onPressed: () {
               context.pushNamed('settings');
             },
           ),
         ],
+        centerTitle: true,
       ),
       body: const Center(
         child: Column(

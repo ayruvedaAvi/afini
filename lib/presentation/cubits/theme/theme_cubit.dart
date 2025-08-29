@@ -10,32 +10,33 @@ import 'theme_state.dart';
 class ThemeCubit extends Cubit<ThemeState> {
   final ThemeRepo _repository;
   StreamSubscription? _themeSubscription;
-  
-  ThemeCubit(this._repository) : super(ThemeState(
-    themeMode: MyThemeMode.system,
-    accentColor: Colors.purple,
-    isLoading: true,
-  )) {
+
+  ThemeCubit(this._repository)
+      : super(ThemeState(
+          themeMode: MyThemeMode.system,
+          accentColor: Colors.purple,
+          fontSize: 14,
+          isLoading: true,
+        )) {
     _init();
   }
-  
+
   Future<void> _init() async {
     try {
-      _themeSubscription = _repository.observeThemeSettings().listen(
-        (settings) {
-          emit(state.copyWith(
-            themeMode: settings.themeMode,
-            accentColor: settings.accentColor,
-            isLoading: false,
-          ));
-        },
-        onError: (error) {
-          emit(state.copyWith(
-            errorMessage: 'Failed to load theme settings',
-            isLoading: false,
-          ));
-        }
-      );
+      _themeSubscription =
+          _repository.observeThemeSettings().listen((settings) {
+        emit(state.copyWith(
+          themeMode: settings.themeMode,
+          accentColor: settings.accentColor,
+          fontSize: settings.fontSize,
+          isLoading: false,
+        ));
+      }, onError: (error) {
+        emit(state.copyWith(
+          errorMessage: 'Failed to load theme settings',
+          isLoading: false,
+        ));
+      });
     } catch (e) {
       emit(state.copyWith(
         errorMessage: 'Failed to initialize theme settings',
@@ -43,7 +44,7 @@ class ThemeCubit extends Cubit<ThemeState> {
       ));
     }
   }
-  
+
   Future<void> setThemeMode(MyThemeMode mode) async {
     emit(state.copyWith(isLoading: true));
     try {
@@ -51,6 +52,7 @@ class ThemeCubit extends Cubit<ThemeState> {
         ThemeSettings(
           themeMode: mode,
           accentColor: state.accentColor,
+          fontSize: state.fontSize,
         ),
       );
     } catch (e) {
@@ -60,7 +62,7 @@ class ThemeCubit extends Cubit<ThemeState> {
       ));
     }
   }
-  
+
   Future<void> setAccentColor(Color color) async {
     emit(state.copyWith(isLoading: true));
     try {
@@ -68,6 +70,7 @@ class ThemeCubit extends Cubit<ThemeState> {
         ThemeSettings(
           themeMode: state.themeMode,
           accentColor: color,
+          fontSize: state.fontSize,
         ),
       );
     } catch (e) {
@@ -77,11 +80,29 @@ class ThemeCubit extends Cubit<ThemeState> {
       ));
     }
   }
-  
+
+  Future<void> setFontSize(double size) async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      await _repository.saveThemeSettings(
+        ThemeSettings(
+          themeMode: state.themeMode,
+          accentColor: state.accentColor,
+          fontSize: size,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(
+        errorMessage: 'Failed to save font size',
+        isLoading: false,
+      ));
+    }
+  }
+
   void resetError() {
     emit(state.copyWith(errorMessage: null));
   }
-  
+
   @override
   Future<void> close() {
     _themeSubscription?.cancel();

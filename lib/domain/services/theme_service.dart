@@ -11,14 +11,35 @@ class ThemeService {
     headlineLarge: TextStyle(fontFamily: 'Quicksand'),
     headlineMedium: TextStyle(fontFamily: 'Quicksand'),
     headlineSmall: TextStyle(fontFamily: 'Quicksand'),
-    titleLarge: TextStyle(fontFamily: 'Quicksand'),
-    titleMedium: TextStyle(fontFamily: 'Quicksand'),
-    titleSmall: TextStyle(fontFamily: 'Quicksand'),
-    labelLarge: TextStyle(fontFamily: 'Quicksand'),
-    labelMedium: TextStyle(fontFamily: 'Quicksand'),
-    labelSmall: TextStyle(fontFamily: 'Quicksand'),
+    titleLarge: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.bold),
+    titleMedium: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.bold),
+    titleSmall: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.bold),
+    labelLarge: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.bold),
+    labelMedium: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.bold),
+    labelSmall: TextStyle(fontFamily: 'Quicksand', fontWeight: FontWeight.bold),
   );
-  static ThemeData getLightTheme(Color accentColor) {
+
+  static TextTheme getTextTheme(double size){
+    return textTheme.copyWith(
+      bodyLarge: textTheme.bodyLarge?.copyWith(fontSize: size),
+      bodyMedium: textTheme.bodyMedium?.copyWith(fontSize: size - 2),
+      bodySmall: textTheme.bodySmall?.copyWith(fontSize: size - 4),
+      displayLarge: textTheme.displayLarge?.copyWith(fontSize: size + 10),
+      displayMedium: textTheme.displayMedium?.copyWith(fontSize: size + 8),
+      displaySmall: textTheme.displaySmall?.copyWith(fontSize: size + 6),
+      headlineLarge: textTheme.headlineLarge?.copyWith(fontSize: size + 4),
+      headlineMedium: textTheme.headlineMedium?.copyWith(fontSize: size + 2),
+      headlineSmall: textTheme.headlineSmall?.copyWith(fontSize: size),
+      titleLarge: textTheme.titleLarge?.copyWith(fontSize: size + 2),
+      titleMedium: textTheme.titleMedium?.copyWith(fontSize: size),
+      titleSmall: textTheme.titleSmall?.copyWith(fontSize: size - 2),
+      labelLarge: textTheme.labelLarge?.copyWith(fontSize: size),
+      labelMedium: textTheme.labelMedium?.copyWith(fontSize: size - 2),
+      labelSmall: textTheme.labelSmall?.copyWith(fontSize: size - 4),
+    );
+  }
+
+  static ThemeData getLightTheme(Color accentColor, double? size) {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: accentColor,
@@ -45,12 +66,12 @@ class ThemeService {
           foregroundColor: Colors.white,
         ),
       ),
-      textTheme: textTheme,
+      textTheme: getTextTheme(size ?? 14),
       // Add more theme customizations here
     );
   }
 
-  static ThemeData getDarkTheme(Color accentColor) {
+  static ThemeData getDarkTheme(Color accentColor, double? size) {
     return ThemeData(
         brightness: Brightness.dark,
         primaryColor: accentColor,
@@ -77,7 +98,7 @@ class ThemeService {
             foregroundColor: Colors.white,
           ),
         ),
-        textTheme: textTheme
+        textTheme: getTextTheme(size ?? 14),
         // Add more dark theme customizations here
         );
   }

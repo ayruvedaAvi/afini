@@ -30,6 +30,16 @@ Future<int?> getIntData(String key) async {
   return prefs.getInt(key);
 }
 
+Future<void> setDoubleData(String key, double value) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setDouble(key, value);
+}
+
+Future<double?> getDoubleData(String key) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getDouble(key);
+}
+
 Future<void> removeData(String key) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.remove(key);

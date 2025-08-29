@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../cubits/theme/theme_cubit.dart';
+import '../../cubits/theme/theme_state.dart';
+import '../../widgets/custom_snack_bar.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -13,7 +18,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _notificationsEnabled = true;
   bool _locationEnabled = true;
   bool _soundEnabled = true;
-  double _fontSize = 16.0;
 
   Widget _buildSectionHeader(String title, ThemeData theme) {
     return Padding(
@@ -101,8 +105,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return SafeArea(
-      child: Scaffold(
+    return BlocConsumer<ThemeCubit, ThemeState>(listener: (context, state) {
+      if (state.errorMessage != null) {
+        CustomSnackBar.show(
+          context: context,
+          message: state.errorMessage!,
+          type: SnackBarType.error,
+        );
+        context.read<ThemeCubit>().resetError();
+      }
+    }, builder: (context, state) {
+      return Scaffold(
         backgroundColor: theme.scaffoldBackgroundColor,
         appBar: AppBar(
           elevation: 0,
@@ -201,6 +214,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                       const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Small',
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                          Text(
+                            "Medium",
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                          Text(
+                            'Large',
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
                       SliderTheme(
                         data: SliderTheme.of(context).copyWith(
                           activeTrackColor: theme.colorScheme.primary,
@@ -209,13 +239,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           overlayColor: theme.colorScheme.primary.withAlpha(40),
                         ),
                         child: Slider(
-                          value: _fontSize,
-                          min: 12.0,
-                          max: 24.0,
-                          divisions: 6,
-                          label: '${_fontSize.round()}px',
+                          value: state.fontSize,
+                          min: 14.0,
+                          max: 20.0,
+                          divisions: 4,
+                          label: '${state.fontSize.round()}px',
                           onChanged: (value) =>
-                              setState(() => _fontSize = value),
+                              context.read<ThemeCubit>().setFontSize(value),
                         ),
                       ),
                     ],
@@ -353,7 +383,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
