@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -8,6 +9,17 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              context.goNamed('settings');
+            },
+          ),
+        ],
       ),
       body: const Center(
         child: Column(

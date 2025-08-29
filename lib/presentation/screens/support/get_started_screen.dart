@@ -92,7 +92,7 @@ class _GetStartedScreenState extends State<GetStartedScreen>
                   shape: shape,
                   boxShadow: [
                     BoxShadow(
-                      color: color.withOpacity(0.6),
+                      color: color.withAlpha(150),
                       blurRadius: 8 * _animations[index].value,
                       spreadRadius: 2 * _animations[index].value,
                     ),

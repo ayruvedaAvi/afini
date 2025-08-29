@@ -72,7 +72,7 @@ class CustomNavBar extends StatelessWidget {
               text: 'Notifications',
             ),
             GButton(
-              icon: Icons.person,
+              icon: Icons.person_outlined,
               text: 'Profile',
             ),
           ],

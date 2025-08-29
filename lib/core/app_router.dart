@@ -7,11 +7,13 @@ import '../presentation/screens/auth/login_screen.dart';
 import '../presentation/screens/auth/signup_screen.dart';
 import '../presentation/screens/baseLayout/base_layout.dart';
 import '../presentation/screens/chats/chats_screen.dart';
-import '../presentation/screens/gallery/gallery_screen.dart';
-import '../presentation/screens/notifications/notifications_screen.dart';
-import '../presentation/screens/profile/profile_screen.dart';
+import '../presentation/screens/baseLayout/gallery/gallery_screen.dart';
+import '../presentation/screens/baseLayout/notifications/notifications_screen.dart';
+import '../presentation/screens/baseLayout/profile/profile_screen.dart';
+import '../presentation/screens/settings/settings_screen.dart';
+import '../presentation/screens/settings/theme_settings._screen.dart';
 import '../presentation/screens/support/get_started_screen.dart';
-import '../presentation/screens/home/home_screen.dart';
+import '../presentation/screens/baseLayout/home/home_screen.dart';
 import '../presentation/screens/support/splash_screen.dart';
 import '../presentation/screens/support/error_screen.dart';
 import 'dependency_injection.dart';
@@ -89,6 +91,14 @@ final GoRouter appRouter = GoRouter(
       path: '/chats',
       builder: (context, state) => const ChatsScreen(),
     ),
+    GoRoute(
+        name: 'settings',
+        path: '/settings',
+        builder: (context, state) => const SettingsScreen()),
+    GoRoute(
+        name: 'themeSettings',
+        path: '/settings/theme',
+        builder: (context, state) => const ThemeSettingsScreen()), 
   ],
   errorBuilder: (context, state) => ErrorScreen(
     errorMessage: state.error.toString(),
