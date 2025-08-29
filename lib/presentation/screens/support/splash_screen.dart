@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:rive/rive.dart';
 
 import '../../../core/token_storage.dart';
 import '../../../data/respository/rem_auth_repo.dart';
-import '../../themes/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,13 +20,16 @@ class SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
+  RiveAnimationController? _riveController;
+  bool _isRiveLoaded = false;
 
   @override
   void initState() {
     super.initState();
+    _initializeAnimation();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 5),
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller)
@@ -43,7 +46,7 @@ class SplashScreenState extends State<SplashScreen>
               context.goNamed('login');
             } catch (e) {
               debugPrint('Error: $e');
-              //show snackbar if necessary
+              context.goNamed('login');
             }
           } else {
             context.goNamed('home');
@@ -54,32 +57,73 @@ class SplashScreenState extends State<SplashScreen>
     _controller.forward();
   }
 
+  void _initializeAnimation() {
+    _riveController = SimpleAnimation('Animation 1');
+    setState(() => _isRiveLoaded = true);
+  }
+
   @override
   void dispose() {
     _controller.dispose();
+    _riveController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 46, 45, 45),
+      backgroundColor: const Color.fromARGB(255, 31, 31, 31),
       body: Center(
         child: FadeTransition(
           opacity: _fadeAnimation,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: Stack(
             children: [
-              Image.asset('assets/images/logo.png', width: 300),
-              Text(
-                'Affini',
-                style:
-                    GoogleFonts.pacifico(fontSize: 24, color: cSecondaryLight),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: _isRiveLoaded
+                    ? RiveAnimation.asset(
+                        'assets/animations/splash.riv',
+                        controllers:
+                            _riveController != null ? [_riveController!] : [],
+                        fit: BoxFit.contain,
+                        onInit: (artboard) {
+                          debugPrint('Rive animation loaded successfully');
+                        },
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withAlpha(50),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.animation,
+                            color: Color.fromARGB(255, 227, 94, 230),
+                            size: 50,
+                          ),
+                        ),
+                      ),
               ),
-              const SizedBox(height: 16),
-              const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(cSecondaryLight),
+              Positioned(
+                bottom: MediaQuery.of(context).size.height * 0.12,
+                left: MediaQuery.of(context).size.width * 0.34,
+                child: Column(
+                  children: [
+                    Text(
+                      'Affini',
+                      style: GoogleFonts.pacifico(
+                        fontSize: 24,
+                        color: const Color.fromARGB(255, 227, 94, 230),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Color.fromARGB(255, 227, 94, 230)),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

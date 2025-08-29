@@ -1,11 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
 
 import 'core/app_router.dart';
 import 'core/dependency_injection.dart';
 import 'presentation/themes/colors.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   DependencyInjection.init();
+  unawaited(RiveFile.initialize());
   runApp(const MyApp());
 }
 
