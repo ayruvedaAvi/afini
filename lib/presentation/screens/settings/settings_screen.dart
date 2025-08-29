@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import '../../themes/colors.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -18,17 +15,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _soundEnabled = true;
   double _fontSize = 16.0;
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(String title, ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
       child: Text(
         title,
-        style: GoogleFonts.poppins(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-          color: cButtonDark,
-          letterSpacing: 0.5,
-        ),
+        style: theme.textTheme.labelMedium,
       ),
     );
   }
@@ -39,51 +31,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
     String? subtitle,
     Widget? trailing,
     VoidCallback? onTap,
-    Color? iconColor,
+    ThemeData? theme,
   }) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        color: Colors.transparent,
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: (iconColor ?? cPrimaryDark).withOpacity(0.1),
+            color: theme?.colorScheme.primary,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(
             icon,
-            color: iconColor ?? cPrimaryDark,
+            color: theme?.colorScheme.onPrimary,
             size: 20,
           ),
         ),
         title: Text(
           title,
-          style: GoogleFonts.poppins(
-            fontSize: 16,
+          style: theme?.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w500,
-            color: const Color(0xFF2C3E50),
           ),
         ),
         subtitle: subtitle != null
             ? Text(
                 subtitle,
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                ),
+                style: theme?.textTheme.bodyMedium?.copyWith(),
               )
             : null,
         trailing: trailing,
@@ -101,20 +79,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
     required String subtitle,
     required bool value,
     required ValueChanged<bool> onChanged,
-    Color? iconColor,
+    ThemeData? theme,
   }) {
     return _buildSettingsTile(
       icon: icon,
       title: title,
       subtitle: subtitle,
-      iconColor: iconColor,
+      theme: theme,
       trailing: Transform.scale(
         scale: 0.8,
         child: CupertinoSwitch(
           value: value,
           onChanged: onChanged,
-          activeTrackColor: cPrimaryDark,
-          inactiveTrackColor: Colors.grey[300],
+          activeTrackColor: theme?.colorScheme.primary,
+          inactiveTrackColor: Colors.grey[400],
         ),
       ),
     );
@@ -122,23 +100,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xFFF8F9FA),
+        backgroundColor: theme.scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text(
             'Settings',
-            style: GoogleFonts.poppins(
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-              color: const Color(0xFF2C3E50),
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
             ),
           ),
           centerTitle: true,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF2C3E50)),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+            ),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -146,77 +124,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Profile Section
-              Container(
-                margin: const EdgeInsets.all(16),
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [cPrimaryDark, cPrimaryDark.withOpacity(0.8)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: cPrimaryDark.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 8,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.white,
-                      child: Text(
-                        'U',
-                        style: GoogleFonts.poppins(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: cPrimaryDark,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'John Doe',
-                            style: GoogleFonts.poppins(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            'john.doe@example.com',
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              color: Colors.white.withOpacity(0.8),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.edit,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
               // Preferences Section
-              _buildSectionHeader('PREFERENCES'),
+              _buildSectionHeader('PREFERENCES', theme),
               _buildSwitchTile(
                 icon: Icons.notifications_outlined,
                 title: 'Notifications',
@@ -224,7 +133,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: _notificationsEnabled,
                 onChanged: (value) =>
                     setState(() => _notificationsEnabled = value),
-                iconColor: Colors.orange,
+                theme: theme,
               ),
               const SizedBox(height: 8),
               _buildSettingsTile(
@@ -233,9 +142,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 subtitle: 'Select theme and appearance',
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
-                  context.goNamed('themeSettings');
+                  context.pushNamed('themeSettings');
                 },
-                iconColor: Colors.indigo,
+                theme: theme,
               ),
               const SizedBox(height: 8),
               _buildSwitchTile(
@@ -244,7 +153,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 subtitle: 'Allow location access',
                 value: _locationEnabled,
                 onChanged: (value) => setState(() => _locationEnabled = value),
-                iconColor: Colors.green,
+                theme: theme,
               ),
               const SizedBox(height: 8),
               _buildSwitchTile(
@@ -253,7 +162,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 subtitle: 'Play sound effects',
                 value: _soundEnabled,
                 onChanged: (value) => setState(() => _soundEnabled = value),
-                iconColor: Colors.purple,
+                theme: theme,
               ),
 
               // Font Size Setting
@@ -261,16 +170,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+                  color: Colors.transparent,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(20),
@@ -282,22 +182,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: Colors.blue.withOpacity(0.1),
+                              color: theme.colorScheme.primary,
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Icon(
+                            child: Icon(
                               Icons.text_fields,
-                              color: Colors.blue,
+                              color: theme.colorScheme.onPrimary,
                               size: 20,
                             ),
                           ),
                           const SizedBox(width: 12),
                           Text(
                             'Font Size',
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
+                            style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.w500,
-                              color: const Color(0xFF2C3E50),
                             ),
                           ),
                         ],
@@ -305,10 +203,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       const SizedBox(height: 16),
                       SliderTheme(
                         data: SliderTheme.of(context).copyWith(
-                          activeTrackColor: cPrimaryDark,
-                          inactiveTrackColor: Colors.grey[300],
-                          thumbColor: cPrimaryDark,
-                          overlayColor: cPrimaryDark.withOpacity(0.2),
+                          activeTrackColor: theme.colorScheme.primary,
+                          inactiveTrackColor: Colors.grey[400],
+                          thumbColor: theme.colorScheme.primary,
+                          overlayColor: theme.colorScheme.primary.withAlpha(40),
                         ),
                         child: Slider(
                           value: _fontSize,
@@ -326,14 +224,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
 
               // Account Section
-              _buildSectionHeader('ACCOUNT'),
+              _buildSectionHeader('ACCOUNT', theme),
               _buildSettingsTile(
                 icon: Icons.person_outline,
                 title: 'Profile Settings',
                 subtitle: 'Update your profile information',
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {},
-                iconColor: Colors.teal,
+                theme: theme,
               ),
               const SizedBox(height: 8),
               _buildSettingsTile(
@@ -342,7 +240,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 subtitle: 'Manage your privacy settings',
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {},
-                iconColor: Colors.red,
+                theme: theme,
               ),
               const SizedBox(height: 8),
               _buildSettingsTile(
@@ -351,18 +249,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 subtitle: 'Manage subscription and payments',
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {},
-                iconColor: Colors.green,
+                theme: theme,
               ),
 
               // Support Section
-              _buildSectionHeader('SUPPORT'),
+              _buildSectionHeader('SUPPORT', theme),
               _buildSettingsTile(
                 icon: Icons.help_outline,
                 title: 'Help Center',
                 subtitle: 'Get help and support',
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {},
-                iconColor: Colors.blue,
+                theme: theme,
               ),
               const SizedBox(height: 8),
               _buildSettingsTile(
@@ -371,7 +269,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 subtitle: 'Help us improve the app',
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {},
-                iconColor: Colors.orange,
+                theme: theme,
               ),
               const SizedBox(height: 8),
               _buildSettingsTile(
@@ -380,7 +278,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 subtitle: 'App version and information',
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {},
-                iconColor: Colors.grey,
+                theme: theme,
               ),
 
               // Logout Section
@@ -396,19 +294,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       builder: (context) => AlertDialog(
                         title: Text(
                           'Logout',
-                          style:
-                              GoogleFonts.poppins(fontWeight: FontWeight.w600),
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         content: Text(
                           'Are you sure you want to logout?',
-                          style: GoogleFonts.poppins(),
+                          style: theme.textTheme.bodyMedium,
                         ),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context),
                             child: Text(
                               'Cancel',
-                              style: GoogleFonts.poppins(color: Colors.grey),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: theme.colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           TextButton(
@@ -418,7 +320,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             },
                             child: Text(
                               'Logout',
-                              style: GoogleFonts.poppins(color: Colors.red),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
@@ -436,9 +341,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   child: Text(
                     'Logout',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

@@ -23,6 +23,18 @@ class ThemeService {
       brightness: Brightness.light,
       primaryColor: accentColor,
       primarySwatch: getMaterialColor(accentColor),
+      cardColor: Colors.grey[200],
+      shadowColor: Colors.grey[800],
+      colorScheme: ColorScheme.light(
+        primary: accentColor,
+        secondary: accentColor,
+        surface: Colors.white,
+        error: Colors.red,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
+        onSurface: Colors.black87,
+        onError: Colors.white,
+      ),
       appBarTheme: AppBarTheme(
         backgroundColor: accentColor,
         foregroundColor: Colors.white,
@@ -43,8 +55,20 @@ class ThemeService {
         brightness: Brightness.dark,
         primaryColor: accentColor,
         primarySwatch: getMaterialColor(accentColor),
+        cardColor: Colors.grey[700],
+        shadowColor: Colors.grey,
+        colorScheme: ColorScheme.dark(
+          primary: accentColor,
+          secondary: accentColor,
+          surface: Colors.grey[900]!,
+          error: Colors.red[400]!,
+          onPrimary: Colors.white,
+          onSecondary: Colors.white,
+          onSurface: Colors.white,
+          onError: Colors.white,
+        ),
         appBarTheme: AppBarTheme(
-          backgroundColor: accentColor.withOpacity(0.8),
+          backgroundColor: accentColor.withAlpha(200),
           foregroundColor: Colors.white,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -73,14 +97,14 @@ class ThemeService {
       900: _getColorShade(color, 1.0),
     };
 
-    return MaterialColor(color.value, shades);
+    return MaterialColor(color.toARGB32(), shades);
   }
 
   static Color _getColorShade(Color color, double factor) {
     return Color.fromRGBO(
-      color.red,
-      color.green,
-      color.blue,
+      color.r.toInt(),
+      color.g.toInt(),
+      color.b.toInt(),
       factor,
     );
   }

@@ -16,7 +16,7 @@ class ProfileScreen extends StatelessWidget {
               color: Colors.black,
             ),
             onPressed: () {
-              context.goNamed('settings');
+              context.pushNamed('settings');
             },
           ),
         ],
