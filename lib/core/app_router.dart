@@ -6,6 +6,7 @@ import '../presentation/screens/auth/code_screen.dart';
 import '../presentation/screens/auth/login_screen.dart';
 import '../presentation/screens/auth/signup_screen.dart';
 import '../presentation/screens/baseLayout/base_layout.dart';
+import '../presentation/screens/chats/chat_theme_settings.dart';
 import '../presentation/screens/chats/chats_screen.dart';
 import '../presentation/screens/baseLayout/gallery/gallery_screen.dart';
 import '../presentation/screens/baseLayout/notifications/notifications_screen.dart';
@@ -92,13 +93,20 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const ChatsScreen(),
     ),
     GoRoute(
-        name: 'settings',
-        path: '/settings',
-        builder: (context, state) => const SettingsScreen()),
+      name: 'settings',
+      path: '/settings',
+      builder: (context, state) => const SettingsScreen(),
+    ),
     GoRoute(
-        name: 'themeSettings',
-        path: '/settings/theme',
-        builder: (context, state) => const ThemeSettingsScreen()), 
+      name: 'themeSettings',
+      path: '/settings/theme',
+      builder: (context, state) => const ThemeSettingsScreen(),
+    ),
+    GoRoute(
+      name: 'chatTheme',
+      path: '/chats/theme',
+      builder: (context, state) => const ChatThemeSettings(),
+    ),
   ],
   errorBuilder: (context, state) => ErrorScreen(
     errorMessage: state.error.toString(),
