@@ -50,7 +50,7 @@ class CustomNavBar extends StatelessWidget {
           tabBackgroundGradient: LinearGradient(
             colors: [
               const Color.fromARGB(130, 226, 205, 226),
-              Colors.purple.withAlpha(130),
+              Theme.of(context).colorScheme.primary.withAlpha(150),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
