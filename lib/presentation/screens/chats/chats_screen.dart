@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../cubits/theme/theme_cubit.dart';
+import '../../cubits/theme/theme_state.dart';
+import '../../widgets/custom_snack_bar.dart';
 import '../../widgets/custom_text_field.dart';
 import 'dummy_messages.dart';
 import 'message.dart';
@@ -25,10 +29,17 @@ class ChatsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String chatName = "Gyaatt space 💗";
-    return SafeArea(
-      top: false,
-      bottom: false,
-      child: Scaffold(
+    return BlocConsumer<ThemeCubit, ThemeState>(listener: (context, state) {
+      if (state.errorMessage != null) {
+        CustomSnackBar.show(
+          context: context,
+          message: state.errorMessage!,
+          type: SnackBarType.error,
+        );
+        context.read<ThemeCubit>().resetError();
+      }
+    }, builder: (context, state) {
+      return Scaffold(
         appBar: AppBar(
           title: const Text(chatName),
           leading: IconButton(
@@ -42,7 +53,7 @@ class ChatsScreen extends StatelessWidget {
                 // Handle menu item selection
                 switch (value) {
                   case 'theme':
-                    context.goNamed('chatTheme');
+                    context.pushNamed('chatTheme');
                     break;
                   case 'mute':
                     // Handle mute notifications
@@ -131,17 +142,28 @@ class ChatsScreen extends StatelessWidget {
               Theme.of(context).appBarTheme.backgroundColor!.withAlpha(230),
         ),
         extendBodyBehindAppBar: true,
-        body: ListView.builder(
-          reverse: true,
-          itemCount: dummyMessages.length,
-          itemBuilder: (context, index) {
-            final message = dummyMessages[dummyMessages.length - 1 - index];
-            return Message(message: message);
-          },
+        extendBody: true,
+        body: Container(
+          decoration: BoxDecoration(
+            image: state.chatBackground != null
+                ? DecorationImage(
+                    image: AssetImage(state.chatBackground!),
+                    fit: BoxFit.cover,
+                  )
+                : null,
+          ),
+          child: ListView.builder(
+            reverse: true,
+            itemCount: dummyMessages.length,
+            itemBuilder: (context, index) {
+              final message = dummyMessages[dummyMessages.length - 1 - index];
+              return Message(message: message);
+            },
+          ),
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            color: Colors.white.withAlpha(10),
+            color: Colors.black.withAlpha(80),
           ),
           padding: const EdgeInsets.only(
             bottom: 16.0,
@@ -167,7 +189,7 @@ class ChatsScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 enum SnackBarType { success, error, warning, info }
+
 enum SnackBarPosition { top, bottom }
 
 class CustomSnackBar {
@@ -61,7 +62,8 @@ class _CustomSnackBarWidget extends StatefulWidget {
   State<_CustomSnackBarWidget> createState() => _CustomSnackBarWidgetState();
 }
 
-class _CustomSnackBarWidgetState extends State<_CustomSnackBarWidget> with SingleTickerProviderStateMixin {
+class _CustomSnackBarWidgetState extends State<_CustomSnackBarWidget>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _opacityAnimation;
   late Animation<Offset> _slideAnimation;
@@ -147,8 +149,12 @@ class _CustomSnackBarWidgetState extends State<_CustomSnackBarWidget> with Singl
     return Positioned(
       left: 16,
       right: 16,
-      top: widget.position == SnackBarPosition.top ? safeAreaPaddingTop + 16 : null,
-      bottom: widget.position == SnackBarPosition.bottom ? safeAreaPaddingBottom + 16 : null,
+      top: widget.position == SnackBarPosition.top
+          ? safeAreaPaddingTop + 16
+          : null,
+      bottom: widget.position == SnackBarPosition.bottom
+          ? safeAreaPaddingBottom + 16
+          : null,
       child: SlideTransition(
         position: _slideAnimation,
         child: FadeTransition(
@@ -160,10 +166,12 @@ class _CustomSnackBarWidgetState extends State<_CustomSnackBarWidget> with Singl
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: _getTypeColor().withOpacity(0.3), width: 1),
+                border:
+                    Border.all(color: _getTypeColor().withAlpha(77), width: 1),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Row(
                   children: [
                     Icon(
@@ -195,11 +203,14 @@ class _CustomSnackBarWidgetState extends State<_CustomSnackBarWidget> with Singl
                           minimumSize: const Size(0, 36),
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
-                        child: Text(widget.actionLabel!, style: const TextStyle(fontWeight: FontWeight.bold)),
+                        child: Text(widget.actionLabel!,
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
                       ),
                     IconButton(
                       padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(maxHeight: 40, maxWidth: 40),
+                      constraints:
+                          const BoxConstraints(maxHeight: 40, maxWidth: 40),
                       icon: const Icon(Icons.close, size: 20),
                       onPressed: () {
                         _animationController.reverse().then((_) {

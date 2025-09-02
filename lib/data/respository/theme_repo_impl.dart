@@ -12,6 +12,7 @@ class ThemeRepositoryImpl implements ThemeRepo {
   static const String _themeModeKey = 'theme_mode';
   static const String _accentColorKey = 'accent_color';
   static const String _fontSizeKey = 'font_size';
+  static const String _chatBackgroundKey = 'chat_background';
 
   final _themeSettingsController = StreamController<ThemeSettings>.broadcast();
 
@@ -22,11 +23,13 @@ class ThemeRepositoryImpl implements ThemeRepo {
     final accentColorValue =
         await getIntData(_accentColorKey) ?? Colors.purple.toARGB32();
     final fontSize = await getDoubleData(_fontSizeKey) ?? 16.0;
+    final chatBackground = await getStringData(_chatBackgroundKey);
 
     return ThemeSettings(
       themeMode: themeMode,
       accentColor: Color(accentColorValue),
       fontSize: fontSize,
+      chatBackground: chatBackground,
     );
   }
 
@@ -35,6 +38,11 @@ class ThemeRepositoryImpl implements ThemeRepo {
     await setIntData(_themeModeKey, settings.themeMode.index);
     await setIntData(_accentColorKey, settings.accentColor.toARGB32());
     await setDoubleData(_fontSizeKey, settings.fontSize);
+    if (settings.chatBackground != null) {
+      await setStringData(_chatBackgroundKey, settings.chatBackground!);
+    } else {
+      await removeData(_chatBackgroundKey);
+    }
     _themeSettingsController.add(settings);
   }
 

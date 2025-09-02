@@ -60,8 +60,8 @@ class Message extends StatelessWidget {
                               primaryColor.withAlpha(50),
                             ]
                           : [
-                              Colors.grey[700]!.withAlpha(150),
                               Colors.grey[700]!.withAlpha(100),
+                              Colors.grey[700]!.withAlpha(80),
                             ],
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(20)),

@@ -110,8 +110,8 @@ class ThemeSettingsScreen extends StatelessWidget {
                           _buildColorOption(
                             context: context,
                             option: option,
-                            isSelected:
-                                state.accentColor.value == option.color.value,
+                            isSelected: state.accentColor.toARGB32() ==
+                                option.color.toARGB32(),
                             currentAccentColor: state.accentColor,
                           ),
                       ],
@@ -160,7 +160,7 @@ class ThemeSettingsScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: theme.shadowColor.withOpacity(0.05),
+                color: theme.shadowColor.withAlpha(20),
                 blurRadius: 10,
                 offset: const Offset(0, 5),
               ),
@@ -223,7 +223,7 @@ class ThemeSettingsScreen extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: option.color.withOpacity(0.5),
+                  color: option.color.withAlpha(226),
                   blurRadius: 10,
                   spreadRadius: isSelected ? 2 : 0,
                 ),

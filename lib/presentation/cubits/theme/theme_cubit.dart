@@ -16,6 +16,7 @@ class ThemeCubit extends Cubit<ThemeState> {
           themeMode: MyThemeMode.system,
           accentColor: Colors.purple,
           fontSize: 14,
+          chatBackground: null,
           isLoading: true,
         )) {
     _init();
@@ -29,6 +30,7 @@ class ThemeCubit extends Cubit<ThemeState> {
           themeMode: settings.themeMode,
           accentColor: settings.accentColor,
           fontSize: settings.fontSize,
+          chatBackground: settings.chatBackground,
           isLoading: false,
         ));
       }, onError: (error) {
@@ -53,6 +55,7 @@ class ThemeCubit extends Cubit<ThemeState> {
           themeMode: mode,
           accentColor: state.accentColor,
           fontSize: state.fontSize,
+          chatBackground: state.chatBackground,
         ),
       );
     } catch (e) {
@@ -71,6 +74,7 @@ class ThemeCubit extends Cubit<ThemeState> {
           themeMode: state.themeMode,
           accentColor: color,
           fontSize: state.fontSize,
+          chatBackground: state.chatBackground,
         ),
       );
     } catch (e) {
@@ -89,11 +93,31 @@ class ThemeCubit extends Cubit<ThemeState> {
           themeMode: state.themeMode,
           accentColor: state.accentColor,
           fontSize: size,
+          chatBackground: state.chatBackground,
         ),
       );
     } catch (e) {
       emit(state.copyWith(
         errorMessage: 'Failed to save font size',
+        isLoading: false,
+      ));
+    }
+  }
+
+  Future<void> setChatBackground(String? backgroundPath) async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      await _repository.saveThemeSettings(
+        ThemeSettings(
+          themeMode: state.themeMode,
+          accentColor: state.accentColor,
+          fontSize: state.fontSize,
+          chatBackground: backgroundPath,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(
+        errorMessage: 'Failed to save chat background',
         isLoading: false,
       ));
     }
