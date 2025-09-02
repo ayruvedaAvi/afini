@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/app_router.dart';
 import '../../cubits/theme/theme_cubit.dart';
 import '../../cubits/theme/theme_state.dart';
 import '../../widgets/custom_snack_bar.dart';
@@ -155,7 +156,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 subtitle: 'Select theme and appearance',
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
-                  context.pushNamed('themeSettings');
+                  context.pushNamed(AppRoutes.themeSettings.name);
                 },
                 theme: theme,
               ),

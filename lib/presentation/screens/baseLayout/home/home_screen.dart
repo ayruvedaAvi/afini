@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/app_router.dart';
 import '../../../themes/colors.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,6 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[900],
       extendBody: true,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -21,22 +24,26 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         actions: [
-          Container(
-            margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.black.withAlpha(102),
-              borderRadius: BorderRadius.circular(16),
+          IconButton(
+            icon: const Icon(
+              Icons.notifications_none_rounded,
+              color: Colors.white,
             ),
-            child: IconButton(
-              icon: const Icon(
-                Icons.chat_bubble_outline_rounded,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                context.pushNamed('chats');
-              },
+            onPressed: () {
+              context.pushNamed(AppRoutes.notifications.name);
+            },
+          ),
+          GestureDetector(
+            onTap: () {
+              context.pushNamed(AppRoutes.chats.name);
+            },
+            child: SvgPicture.asset(
+              'assets/icons/chat.svg',
+              width: 28,
+              height: 28,
             ),
           ),
+          SizedBox(width: 12),
         ],
       ),
       body: Padding(
@@ -64,7 +71,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                context.push('/profile');
+                context.pushNamed('profile');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple,

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:rive/rive.dart';
 
+import '../../../core/app_router.dart';
 import '../../../core/token_storage.dart';
 import '../../../data/respository/rem_auth_repo.dart';
 
@@ -37,19 +38,19 @@ class SplashScreenState extends State<SplashScreen>
         if (status == AnimationStatus.completed) {
           final refreshToken = await TokenStorage.getRefreshToken();
           if (refreshToken == null) {
-            context.goNamed('get-started');
+            context.goNamed(AppRoutes.getStarted.name);
             return;
           }
           if (JwtDecoder.isExpired(refreshToken)) {
             try {
               await RemAuthRepo().logout();
-              context.goNamed('login');
+              context.goNamed(AppRoutes.login.name);
             } catch (e) {
               debugPrint('Error: $e');
-              context.goNamed('login');
+              context.goNamed(AppRoutes.login.name);
             }
           } else {
-            context.goNamed('home');
+            context.goNamed(AppRoutes.home.name);
           }
         }
       });

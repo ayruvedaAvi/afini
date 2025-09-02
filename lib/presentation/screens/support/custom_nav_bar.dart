@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../../core/app_router.dart';
+
 class CustomNavBar extends StatelessWidget {
   final int selectedIndex;
 
@@ -13,16 +15,16 @@ class CustomNavBar extends StatelessWidget {
   void _onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
-        context.goNamed('home');
+        context.goNamed(AppRoutes.home.name);
         break;
       case 1:
-        context.goNamed('gallery');
+        context.goNamed(AppRoutes.gallery.name);
         break;
       case 2:
-        context.goNamed('notifications');
+        context.goNamed(AppRoutes.notifications.name);
         break;
       case 3:
-        context.goNamed('profile');
+        context.goNamed(AppRoutes.profile.name);
         break;
     }
   }

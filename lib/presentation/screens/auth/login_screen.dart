@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/app_router.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/auth/auth_state.dart';
 import '../../themes/colors.dart';
@@ -27,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _handleLogin() {
-    context.goNamed('home');
+    context.goNamed(AppRoutes.home.name);
     // if (_formKey.currentState?.validate() ?? false) {
     //   context.read<AuthCubit>().login(
     //         _emailController.text,
@@ -51,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
 
         if (state.status == AuthStatus.authenticated) {
-          context.goNamed('home');
+          context.goNamed(AppRoutes.home.name);
         }
       },
       child: Scaffold(
@@ -227,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    context.pushNamed('signup');
+                                    context.pushNamed(AppRoutes.signup.name);
                                   },
                                   child: const Text(
                                     'Sign Up',

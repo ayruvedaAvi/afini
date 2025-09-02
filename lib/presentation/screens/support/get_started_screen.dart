@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/app_router.dart';
 import '../../themes/colors.dart';
 
 class GetStartedScreen extends StatefulWidget {
@@ -183,7 +184,7 @@ class _GetStartedScreenState extends State<GetStartedScreen>
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            context.pushNamed('signup');
+                            context.pushNamed(AppRoutes.signup.name);
                           },
                           child: const Text('Get Started',
                               style: TextStyle(
@@ -195,7 +196,7 @@ class _GetStartedScreenState extends State<GetStartedScreen>
                       ),
                       TextButton(
                         onPressed: () {
-                          context.pushNamed('login');
+                          context.pushNamed(AppRoutes.login.name);
                         },
                         child: const Text(
                           'Already have an account? Log in..',

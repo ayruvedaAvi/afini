@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/app_router.dart';
 import '../../cubits/theme/theme_cubit.dart';
 import '../../cubits/theme/theme_state.dart';
 import '../../widgets/custom_snack_bar.dart';
@@ -53,7 +54,7 @@ class ChatsScreen extends StatelessWidget {
                 // Handle menu item selection
                 switch (value) {
                   case 'theme':
-                    context.pushNamed('chatTheme');
+                    context.pushNamed(AppRoutes.chatTheme.name);
                     break;
                   case 'mute':
                     // Handle mute notifications

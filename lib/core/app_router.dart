@@ -19,38 +19,57 @@ import '../presentation/screens/support/splash_screen.dart';
 import '../presentation/screens/support/error_screen.dart';
 import 'dependency_injection.dart';
 
+enum AppRoutes {
+  splash('/splash'),
+  getStarted('/get-started'),
+  login('/login'),
+  signup('/signup'),
+  codeScreen('/code-screen/:isCopyCode'),
+  home('/home'),
+  gallery('/gallery'),
+  notifications('/notifications'),
+  profile('/profile'),
+  chats('/chats'),
+  settings('/settings'),
+  themeSettings('/settings/theme'),
+  chatTheme('/chats/theme');
+
+  const AppRoutes(this.path);
+  final String path;
+}
+
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/splash',
+  initialLocation: AppRoutes.splash.path,
   routes: [
     // Non-authenticated routes (no bottom nav)
     GoRoute(
-      name: 'splash',
-      path: '/splash',
+      name: AppRoutes.splash.name,
+      path: AppRoutes.splash.path,
       builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
-      name: 'get-started',
-      path: '/get-started',
+      name: AppRoutes.getStarted.name,
+      path: AppRoutes.getStarted.path,
       builder: (context, state) => const GetStartedScreen(),
     ),
     GoRoute(
-      name: 'login',
-      path: '/login',
+      name: AppRoutes.login.name,
+      path: AppRoutes.login.path,
       builder: (context, state) => BlocProvider(
         create: (_) => AuthCubit(DependencyInjection.authRepository),
         child: const LoginScreen(),
       ),
     ),
     GoRoute(
-      name: 'signup',
-      path: '/signup',
+      name: AppRoutes.signup.name,
+      path: AppRoutes.signup.path,
       builder: (context, state) => const SignupScreen(),
     ),
 
     // Authenticated routes with bottom nav
     GoRoute(
-      name: 'code-screen',
-      path: '/code-screen/:isCopyCode',
+      name: AppRoutes.codeScreen.name,
+      path: AppRoutes.codeScreen.path,
       builder: (context, state) => CodeScreen(
         isCopyCode: state.pathParameters['isCopyCode'] == 'true',
       ),
@@ -58,29 +77,29 @@ final GoRouter appRouter = GoRouter(
     ShellRoute(
       builder: (context, state, child) {
         return BaseLayout(
-          currentRoute: state.name ?? 'home',
+          currentRoute: state.name ?? AppRoutes.home.name,
           child: child,
         );
       },
       routes: [
         GoRoute(
-          name: 'home',
-          path: '/home',
+          name: AppRoutes.home.name,
+          path: AppRoutes.home.path,
           builder: (context, state) => const HomeScreen(),
         ),
         GoRoute(
-          name: 'gallery',
-          path: '/gallery',
+          name: AppRoutes.gallery.name,
+          path: AppRoutes.gallery.path,
           builder: (context, state) => const GalleryScreen(),
         ),
         GoRoute(
-          name: 'notifications',
-          path: '/notifications',
+          name: AppRoutes.notifications.name,
+          path: AppRoutes.notifications.path,
           builder: (context, state) => const NotificationsScreen(),
         ),
         GoRoute(
-          name: 'profile',
-          path: '/profile',
+          name: AppRoutes.profile.name,
+          path: AppRoutes.profile.path,
           builder: (context, state) => const ProfileScreen(),
         ),
       ],
@@ -88,23 +107,23 @@ final GoRouter appRouter = GoRouter(
 
     // Modal routes (no bottom nav)
     GoRoute(
-      name: 'chats',
-      path: '/chats',
+      name: AppRoutes.chats.name,
+      path: AppRoutes.chats.path,
       builder: (context, state) => const ChatsScreen(),
     ),
     GoRoute(
-      name: 'settings',
-      path: '/settings',
+      name: AppRoutes.settings.name,
+      path: AppRoutes.settings.path,
       builder: (context, state) => const SettingsScreen(),
     ),
     GoRoute(
-      name: 'themeSettings',
-      path: '/settings/theme',
+      name: AppRoutes.themeSettings.name,
+      path: AppRoutes.themeSettings.path,
       builder: (context, state) => const ThemeSettingsScreen(),
     ),
     GoRoute(
-      name: 'chatTheme',
-      path: '/chats/theme',
+      name: AppRoutes.chatTheme.name,
+      path: AppRoutes.chatTheme.path,
       builder: (context, state) => const ChatThemeSettings(),
     ),
   ],
