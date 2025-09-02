@@ -18,7 +18,7 @@ class BaseLayout extends StatelessWidget {
         return 0;
       case 'gallery':
         return 1;
-      case 'notifications':
+      case 'bucketList':
         return 2;
       case 'profile':
         return 3;

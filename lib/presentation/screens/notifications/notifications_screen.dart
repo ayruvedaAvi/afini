@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 
-class GalleryScreen extends StatelessWidget {
-  const GalleryScreen({super.key});
+class NotificationsScreen extends StatelessWidget {
+  const NotificationsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Memories'),
+        title: const Text('Notifications'),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.photo_album,
+              Icons.notifications,
               size: 64,
-              color: Theme.of(context).colorScheme.primary,
+              color: Colors.blue,
             ),
             SizedBox(height: 16),
             Text(
-              'SORRY. UNDER CONSTRUCTION',
+              'Notifications Screen',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
             Text(
-              'The Memory Timeline and Scrapbook features are coming soon!',
+              'This is the notifications screen.',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16),
             ),

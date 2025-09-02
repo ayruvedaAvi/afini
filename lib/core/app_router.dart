@@ -1,3 +1,5 @@
+import 'package:affini/presentation/screens/baseLayout/bucket_list/bucket_list_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,7 +11,7 @@ import '../presentation/screens/baseLayout/base_layout.dart';
 import '../presentation/screens/chats/chat_theme_settings.dart';
 import '../presentation/screens/chats/chats_screen.dart';
 import '../presentation/screens/baseLayout/gallery/gallery_screen.dart';
-import '../presentation/screens/baseLayout/notifications/notifications_screen.dart';
+import '../presentation/screens/notifications/notifications_screen.dart';
 import '../presentation/screens/baseLayout/profile/profile_screen.dart';
 import '../presentation/screens/settings/settings_screen.dart';
 import '../presentation/screens/settings/theme_settings._screen.dart';
@@ -27,6 +29,7 @@ enum AppRoutes {
   codeScreen('/code-screen/:isCopyCode'),
   home('/home'),
   gallery('/gallery'),
+  bucketList('/bucket-list'),
   notifications('/notifications'),
   profile('/profile'),
   chats('/chats'),
@@ -85,22 +88,82 @@ final GoRouter appRouter = GoRouter(
         GoRoute(
           name: AppRoutes.home.name,
           path: AppRoutes.home.path,
-          builder: (context, state) => const HomeScreen(),
+          pageBuilder: (context, state) => CustomTransitionPage<void>(
+            key: state.pageKey,
+            child: HomeScreen(),
+            transitionsBuilder: (context, animation, _, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(-1.0, 0.0), // start from left
+                  end: Offset.zero, // end at current position
+                ).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOut,
+                )),
+                child: child,
+              );
+            },
+          ),
         ),
         GoRoute(
           name: AppRoutes.gallery.name,
           path: AppRoutes.gallery.path,
-          builder: (context, state) => const GalleryScreen(),
-        ),
-        GoRoute(
-          name: AppRoutes.notifications.name,
-          path: AppRoutes.notifications.path,
-          builder: (context, state) => const NotificationsScreen(),
+          pageBuilder: (context, state) => CustomTransitionPage<void>(
+            key: state.pageKey,
+            child: GalleryScreen(),
+            transitionsBuilder: (context, animation, _, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0, 1), // start from bottom
+                  end: Offset.zero, // end at current position
+                ).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOut,
+                )),
+                child: child,
+              );
+            },
+          ),
         ),
         GoRoute(
           name: AppRoutes.profile.name,
           path: AppRoutes.profile.path,
-          builder: (context, state) => const ProfileScreen(),
+          pageBuilder: (context, state) => CustomTransitionPage<void>(
+            key: state.pageKey,
+            child: ProfileScreen(),
+            transitionsBuilder: (context, animation, _, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1.0, 0.0), // start from right
+                  end: Offset.zero, // end at current position
+                ).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOut,
+                )),
+                child: child,
+              );
+            },
+          ),
+        ),
+        GoRoute(
+          name: AppRoutes.bucketList.name,
+          path: AppRoutes.bucketList.path,
+          pageBuilder: (context, state) => CustomTransitionPage<void>(
+            key: state.pageKey,
+            child: BucketListScreen(),
+            transitionsBuilder: (context, animation, _, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0, 1), // start from bottom
+                  end: Offset.zero, // end at current position
+                ).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOut,
+                )),
+                child: child,
+              );
+            },
+          ),
         ),
       ],
     ),
@@ -125,6 +188,11 @@ final GoRouter appRouter = GoRouter(
       name: AppRoutes.chatTheme.name,
       path: AppRoutes.chatTheme.path,
       builder: (context, state) => const ChatThemeSettings(),
+    ),
+    GoRoute(
+      name: AppRoutes.notifications.name,
+      path: AppRoutes.notifications.path,
+      builder: (context, state) => const NotificationsScreen(),
     ),
   ],
   errorBuilder: (context, state) => ErrorScreen(

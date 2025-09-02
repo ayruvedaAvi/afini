@@ -21,7 +21,7 @@ class CustomNavBar extends StatelessWidget {
         context.goNamed(AppRoutes.gallery.name);
         break;
       case 2:
-        context.goNamed(AppRoutes.notifications.name);
+        context.goNamed(AppRoutes.bucketList.name);
         break;
       case 3:
         context.goNamed(AppRoutes.profile.name);
@@ -49,6 +49,12 @@ class CustomNavBar extends StatelessWidget {
           backgroundColor: Colors.transparent,
           color: Colors.white.withAlpha(180),
           activeColor: Colors.white,
+          haptic: true,
+          curve: Curves.slowMiddle,
+          textStyle: Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(color: Colors.white, fontWeight: FontWeight.w600),
           tabBackgroundGradient: LinearGradient(
             colors: [
               const Color.fromARGB(130, 226, 205, 226),
@@ -67,11 +73,11 @@ class CustomNavBar extends StatelessWidget {
             ),
             GButton(
               icon: Icons.photo_library_outlined,
-              text: 'Gallery',
+              text: 'Memories',
             ),
             GButton(
-              icon: Icons.notifications_none,
-              text: 'Notifications',
+              icon: Icons.format_list_bulleted_sharp,
+              text: 'Buck List',
             ),
             GButton(
               icon: Icons.person_outlined,
